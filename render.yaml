@@ -1,0 +1,13 @@
+# Render Blueprint Specification for GoldenCircles Senior Forums
+# Reference: https://render.com/docs/blueprints
+
+services:
+  - type: web
+    name: goldencircles-forums
+    runtime: node
+    plan: free # Deploys on Render's free tier
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: "24.16.0" # Matches local verified build version
