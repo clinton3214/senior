@@ -54,16 +54,16 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Accessible Navigation Header */}
       <Header />
 
-      {/* Main Forum View */}
-      <main className="flex-1 w-full max-w-max-width mx-auto px-6 py-10">
+      {/* Main Forum View - Compact padding on mobile */}
+      <main className="flex-1 w-full max-w-max-width mx-auto px-4 py-8 md:px-6 md:py-10">
         
         {/* Title and Top Action Header */}
         <section 
-          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 pb-6 border-b-2 border-surface-variant"
+          className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6 pb-6 border-b-2 border-surface-variant"
           aria-labelledby="main-heading"
         >
           <div>
@@ -76,11 +76,11 @@ export default function Home() {
           </div>
           
           <div className="flex flex-wrap gap-4 w-full md:w-auto">
-            <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-surface-container-lowest text-primary border-2 border-primary hover:bg-surface-container-low font-label-lg text-label-lg font-bold px-6 py-4 rounded-xl min-h-[56px] transition-colors active:scale-95 shadow-sm">
+            <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-surface-container-lowest text-primary border-2 border-primary hover:bg-surface-container-low font-label-lg text-label-lg font-bold px-6 py-4 rounded-2xl min-h-[56px] transition-all active:scale-95 shadow-sm cursor-pointer">
               <Icons.Edit size={24} aria-hidden="true" />
               New Post
             </button>
-            <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold px-6 py-4 rounded-xl min-h-[56px] transition-colors active:scale-95 shadow-md">
+            <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold px-6 py-4 rounded-2xl min-h-[56px] transition-all active:scale-95 shadow-md cursor-pointer">
               <Icons.PlusCircle size={24} aria-hidden="true" />
               Post Thread
             </button>
@@ -91,12 +91,12 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Forum Categories Column */}
-          <div className="lg:col-span-8 space-y-12">
+          <div className="lg:col-span-8 space-y-10">
             
             {/* Category: Retirement Planning */}
             <section aria-labelledby="retirement-heading">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border border-outline">
+              <div className="flex items-center gap-3.5 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border border-outline shadow-xs">
                   <Icons.Savings size={26} aria-hidden="true" />
                 </div>
                 <h3 id="retirement-heading" className="font-headline-lg text-headline-md md:text-headline-lg text-primary font-extrabold">
@@ -113,8 +113,8 @@ export default function Home() {
 
             {/* Category: Hobbies & Interests */}
             <section aria-labelledby="hobbies-heading">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border border-outline">
+              <div className="flex items-center gap-3.5 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center border border-outline shadow-xs">
                   <Icons.Palette size={26} aria-hidden="true" />
                 </div>
                 <h3 id="hobbies-heading" className="font-headline-lg text-headline-md md:text-headline-lg text-primary font-extrabold">
@@ -129,35 +129,35 @@ export default function Home() {
               </div>
             </section>
 
-            {/* Pagination Controls - Explicit Legible Page Selectors */}
+            {/* Pagination Controls - Optimized for mobile screen widths */}
             <nav 
-              className="flex items-center justify-between gap-4 p-4 bg-surface-container border-2 border-outline-variant rounded-2xl shadow-xs"
+              className="flex items-center justify-between gap-4 p-4 bg-surface-container border-2 border-outline-variant rounded-3xl shadow-xs"
               aria-label="Forum pagination navigation"
             >
               <button 
-                className="flex items-center justify-center gap-2 h-12 px-4 bg-surface-container-lowest hover:bg-surface text-secondary hover:text-primary border-2 border-outline rounded-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+                className="flex items-center justify-center gap-2 h-12 px-4 bg-surface-container-lowest hover:bg-surface text-secondary hover:text-primary border-2 border-outline rounded-2xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 cursor-pointer"
                 disabled
               >
                 <Icons.ArrowLeft size={20} aria-hidden="true" />
-                Previous Page
+                <span className="hidden sm:inline">Previous Page</span>
               </button>
               
               <div className="flex items-center gap-2">
                 <button 
-                  className="w-12 h-12 flex items-center justify-center bg-primary text-on-primary border-2 border-primary rounded-xl font-extrabold transition-all"
+                  className="w-12 h-12 flex items-center justify-center bg-primary text-on-primary border-2 border-primary rounded-2xl font-extrabold transition-all cursor-pointer"
                   aria-current="page"
                   aria-label="Page 1"
                 >
                   1
                 </button>
                 <button 
-                  className="w-12 h-12 flex items-center justify-center bg-surface-container-lowest hover:bg-surface text-on-surface border-2 border-outline-variant rounded-xl font-extrabold transition-all active:scale-95"
+                  className="w-12 h-12 flex items-center justify-center bg-surface-container-lowest hover:bg-surface text-on-surface border-2 border-outline-variant rounded-2xl font-extrabold transition-all active:scale-95 cursor-pointer"
                   aria-label="Go to Page 2"
                 >
                   2
                 </button>
                 <button 
-                  className="w-12 h-12 flex items-center justify-center bg-surface-container-lowest hover:bg-surface text-on-surface border-2 border-outline-variant rounded-xl font-extrabold transition-all active:scale-95"
+                  className="w-12 h-12 flex items-center justify-center bg-surface-container-lowest hover:bg-surface text-on-surface border-2 border-outline-variant rounded-2xl font-extrabold transition-all active:scale-95 cursor-pointer"
                   aria-label="Go to Page 3"
                 >
                   3
@@ -165,10 +165,10 @@ export default function Home() {
               </div>
 
               <button 
-                className="flex items-center justify-center gap-2 h-12 px-4 bg-surface-container-lowest hover:bg-surface text-primary border-2 border-outline rounded-xl font-bold transition-all active:scale-95"
+                className="flex items-center justify-center gap-2 h-12 px-4 bg-surface-container-lowest hover:bg-surface text-primary border-2 border-outline rounded-2xl font-bold transition-all active:scale-95 cursor-pointer"
                 aria-label="Go to next page"
               >
-                Next Page
+                <span className="hidden sm:inline">Next Page</span>
                 <Icons.ArrowRight size={20} aria-hidden="true" />
               </button>
             </nav>

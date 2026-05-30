@@ -10,7 +10,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-surface-container-low border-t-4 border-outline-variant mt-auto">
-      <div className="max-w-max-width mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+      <div className="max-w-max-width mx-auto px-4 md:px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Brand & Copy */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <span className="font-display text-headline-md font-bold text-primary tracking-tight">
