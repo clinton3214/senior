@@ -6,7 +6,7 @@ services:
     name: goldencircles-forums
     runtime: node
     plan: free # Deploys on Render's free tier
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm run start
     envVars:
       - key: NODE_VERSION
