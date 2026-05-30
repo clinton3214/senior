@@ -1,0 +1,182 @@
+/* Import Web Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-headline-lg: "Plus Jakarta Sans", sans-serif;
+  --font-headline-md: "Plus Jakarta Sans", sans-serif;
+  --font-label-lg: "Plus Jakarta Sans", sans-serif;
+  --font-label-md: "Plus Jakarta Sans", sans-serif;
+  --font-body-lg: "Atkinson Hyperlegible", sans-serif;
+  --font-body-md: "Atkinson Hyperlegible", sans-serif;
+
+  /* Font Sizes & Line Heights */
+  --text-display: 40px;
+  --text-display--line-height: 52px;
+  --text-display--font-weight: 700;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 600;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-label-lg: 16px;
+  --text-label-lg--line-height: 24px;
+  --text-label-lg--font-weight: 600;
+
+  --text-label-md: 14px;
+  --text-label-md--line-height: 20px;
+  --text-label-md--font-weight: 500;
+
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 32px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 18px;
+  --text-body-md--line-height: 28px;
+  --text-body-md--font-weight: 400;
+
+  /* Borders & Spacing */
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  --spacing-stack-xl: 4rem;
+  --spacing-stack-lg: 2rem;
+  --spacing-stack-md: 1rem;
+  --spacing-stack-sm: 0.5rem;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-max-width: 1140px;
+
+  /* CSS Variable Theme colors */
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-on-primary: var(--on-primary);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary: var(--on-secondary);
+  
+  --color-tertiary: var(--tertiary);
+  
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface-variant: var(--surface-variant);
+  
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+}
+
+/* Base Variable Definitions (Light Mode default) */
+:root {
+  --primary: #003345;
+  --primary-container: #004b63;
+  --on-primary-container: #83bad6;
+  --on-primary: #ffffff;
+  
+  --secondary: #5c5f60;
+  --secondary-container: #e1e3e4;
+  --on-secondary: #ffffff;
+  
+  --tertiary: #2c3032;
+  
+  --background: #fcf8f9;
+  --on-background: #1b1b1c;
+  
+  --surface: #fcf8f9;
+  --on-surface: #1b1b1c;
+  --on-surface-variant: #40484c;
+  --surface-variant: #e5e2e3;
+  
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f6f3f4;
+  --surface-container: #f0edee;
+  --surface-container-high: #eae7e8;
+  --surface-container-highest: #e5e2e3;
+  
+  --outline: #71787d;
+  --outline-variant: #c0c7cd;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+}
+
+/* Dark Mode Variables Mapping */
+.dark {
+  --primary: #96ceeb;
+  --primary-container: #004b63;
+  --on-primary-container: #bfe8ff;
+  --on-primary: #001f2b;
+  
+  --secondary: #a8adb3;
+  --secondary-container: #2c3032;
+  --on-secondary: #191c1d;
+  
+  --tertiary: #e0e3e6;
+  
+  --background: #0f1214;
+  --on-background: #f6f8fa;
+  
+  --surface: #16191c;
+  --on-surface: #f6f8fa;
+  --on-surface-variant: #b5bec6;
+  --surface-variant: #30353a;
+  
+  --surface-container-lowest: #0b0c0e;
+  --surface-container-low: #121517;
+  --surface-container: #1b1f23;
+  --surface-container-high: #24292e;
+  --surface-container-highest: #2e343b;
+  
+  --outline: #8a959e;
+  --outline-variant: #3f474f;
+  --error: #ffb4ab;
+  --on-error: #690005;
+}
+
+/* Layout and Core styling rules */
+body {
+  background-color: var(--background);
+  color: var(--on-background);
+  font-family: var(--font-body-md);
+  font-size: var(--text-body-md);
+  line-height: var(--text-body-md--line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material symbols icons styling */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+.material-symbols-outlined.fill {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Premium smooth transitions */
+* {
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.15s ease-in-out;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "GoldenCircles Senior Forums",
+  "short_name": "GoldenCircles",
+  "description": "Designed for clarity and connection among senior community members.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fcf8f9",
+  "theme_color": "#003345",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
