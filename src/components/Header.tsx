@@ -77,7 +77,7 @@ export default function Header() {
             </div>
 
             {/* Profile Section */}
-            <div className="flex items-center gap-4 mb-8 p-4 bg-surface-container rounded-2xl border border-outline-variant">
+            <a href="/profile" onClick={() => setIsDrawerOpen(false)} className="flex items-center gap-4 mb-8 p-4 bg-surface-container rounded-2xl border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer">
               <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container border border-outline flex items-center justify-center overflow-hidden">
                 <Icons.Person size={24} className="text-primary" />
               </div>
@@ -85,7 +85,7 @@ export default function Header() {
                 <p className="font-label-lg text-label-lg text-on-surface">Welcome back,</p>
                 <p className="font-body-md font-bold text-primary">Community Member</p>
               </div>
-            </div>
+            </a>
 
             {/* Nav links */}
             <nav className="flex-1 flex flex-col gap-3">
@@ -185,10 +185,10 @@ export default function Header() {
           </button>
 
           {/* User Account */}
-          <button className="h-12 px-4 flex items-center justify-center gap-2 hover:bg-surface-container text-primary border-2 border-outline-variant rounded-2xl font-bold transition-colors active:scale-95 cursor-pointer">
+          <a href="/profile" className="h-12 px-4 flex items-center justify-center gap-2 hover:bg-surface-container text-primary border-2 border-outline-variant rounded-2xl font-bold transition-colors active:scale-95 cursor-pointer">
             <Icons.Person size={20} className="text-primary" aria-hidden="true" />
             <span className="text-body-md font-bold">Profile</span>
-          </button>
+          </a>
         </div>
       </header>
     </>
