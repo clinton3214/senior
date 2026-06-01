@@ -196,3 +196,67 @@ body {
 .animate-scaleUp {
   animation: scaleUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+
+/* Google-style Multi-light Outline Focused Glow */
+.google-search-focus:focus-within {
+  border-color: #4285f4 !important;
+  box-shadow: 
+    0 0 0 2px var(--surface-container-lowest),
+    0 0 16px 4px rgba(66, 133, 244, 0.25), /* Google Blue */
+    0 0 28px 8px rgba(234, 67, 53, 0.20), /* Google Red */
+    0 0 40px 12px rgba(251, 188, 5, 0.15), /* Google Yellow */
+    0 0 52px 16px rgba(52, 168, 83, 0.10)  /* Google Green */
+    !important;
+}
+
+/* Senior-Friendly Dynamic Text Scaling overrides */
+.text-scale-normal {
+  /* Default typography variables (already set at :root, but explicitly handled for transitions) */
+}
+
+.text-scale-large {
+  --text-display: 46px;
+  --text-display--line-height: 58px;
+
+  --text-headline-lg: 38px;
+  --text-headline-lg--line-height: 46px;
+
+  --text-headline-md: 29px;
+  --text-headline-md--line-height: 37px;
+
+  --text-label-lg: 19px;
+  --text-label-lg--line-height: 27px;
+
+  --text-label-md: 17px;
+  --text-label-md--line-height: 23px;
+
+  --text-body-lg: 24px;
+  --text-body-lg--line-height: 36px;
+
+  --text-body-md: 22px;
+  --text-body-md--line-height: 32px;
+}
+
+.text-scale-largest {
+  --text-display: 52px;
+  --text-display--line-height: 64px;
+
+  --text-headline-lg: 44px;
+  --text-headline-lg--line-height: 52px;
+
+  --text-headline-md: 34px;
+  --text-headline-md--line-height: 42px;
+
+  --text-label-lg: 22px;
+  --text-label-lg--line-height: 30px;
+
+  --text-label-md: 20px;
+  --text-label-md--line-height: 26px;
+
+  --text-body-lg: 28px;
+  --text-body-lg--line-height: 40px;
+
+  --text-body-md: 26px;
+  --text-body-md--line-height: 36px;
+}
+

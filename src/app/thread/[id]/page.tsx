@@ -140,6 +140,33 @@ export default function ThreadDetailPage() {
   const [newReplyText, setNewReplyText] = useState("");
   const [replyCount, setReplyCount] = useState(thread?.replies ?? 0);
 
+  // Mock seeding of initial likes to look realistic
+  const seedLikes = id === "retirement-1" 
+    ? 24 
+    : id === "retirement-2" 
+      ? 12 
+      : id === "hobby-1" 
+        ? 8 
+        : 5;
+
+  const [likeCount, setLikeCount] = useState(seedLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    if (isLiked) {
+      setLikeCount((prev) => prev - 1);
+      setIsLiked(false);
+    } else {
+      setLikeCount((prev) => prev + 1);
+      setIsLiked(true);
+      
+      // Play mobile vibration if supported
+      if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(10);
+      }
+    }
+  };
+
   const handleReplySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newReplyText.trim()) return;
@@ -223,9 +250,9 @@ export default function ThreadDetailPage() {
           </div>
 
           {/* Author footer */}
-          <div className="pt-5 border-t-2 border-surface-variant flex flex-wrap items-center justify-between gap-4">
+          <div className="pt-6 border-t-2 border-surface-variant flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container border border-outline flex items-center justify-center text-body-md font-extrabold">
+              <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container border border-outline flex items-center justify-center text-body-md font-extrabold flex-shrink-0">
                 {thread.authorInitials}
               </div>
               <div>
@@ -233,12 +260,30 @@ export default function ThreadDetailPage() {
                 <span className="text-label-md text-secondary font-bold">Thread Author</span>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-surface-container border border-outline-variant px-4 py-2.5 rounded-2xl">
-              <Icons.Forum size={20} className="text-primary" />
-              <span className="font-headline-md text-headline-md text-primary font-extrabold">{replyCount}</span>
-              <span className="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
-                replies
-              </span>
+
+            <div className="flex items-center gap-3">
+              {/* Like Button */}
+              <button
+                onClick={handleLike}
+                aria-label={isLiked ? "Unlike thread" : "Like thread"}
+                className={`min-h-[48px] px-4.5 rounded-2xl border-2 flex items-center gap-2 font-bold transition-all active:scale-95 cursor-pointer text-body-md ${
+                  isLiked
+                    ? "bg-primary-container text-on-primary-container border-primary font-extrabold"
+                    : "bg-surface hover:bg-surface-container-low text-secondary border-outline-variant hover:border-outline"
+                }`}
+              >
+                <Icons.Heart size={18} className={isLiked ? "fill text-primary" : ""} />
+                <span>{likeCount}</span>
+              </button>
+
+              {/* Replies Widget */}
+              <div className="flex items-center gap-2 bg-surface-container border border-outline-variant px-4 py-2.5 rounded-2xl h-12">
+                <Icons.Forum size={20} className="text-primary" />
+                <span className="font-headline-md text-headline-md text-primary font-extrabold">{replyCount}</span>
+                <span className="font-label-md text-label-md text-on-surface-variant font-bold uppercase tracking-wider">
+                  replies
+                </span>
+              </div>
             </div>
           </div>
         </article>

@@ -75,14 +75,10 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="flex flex-wrap gap-4 w-full md:w-auto">
-            <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-surface-container-lowest text-primary border-2 border-primary hover:bg-surface-container-low font-label-lg text-label-lg font-bold px-6 py-4 rounded-2xl min-h-[56px] transition-all active:scale-95 shadow-sm cursor-pointer">
-              <Icons.Edit size={24} aria-hidden="true" />
-              New Post
-            </button>
+          <div className="flex gap-4 w-full md:w-auto">
             <button className="flex-1 md:flex-none flex items-center justify-center gap-3 bg-primary text-on-primary hover:bg-primary-container font-label-lg text-label-lg font-bold px-6 py-4 rounded-2xl min-h-[56px] transition-all active:scale-95 shadow-md cursor-pointer">
               <Icons.PlusCircle size={24} aria-hidden="true" />
-              Post Thread
+              Start New Discussion
             </button>
           </div>
         </section>
@@ -91,7 +87,7 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Forum Categories Column */}
-          <div className="lg:col-span-8 space-y-10">
+          <div className="lg:col-span-8 space-y-14">
             
             {/* Category: Retirement Planning */}
             <section aria-labelledby="retirement-heading">
@@ -104,7 +100,7 @@ export default function Home() {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-1 gap-8">
                 {retirementThreads.map((thread) => (
                   <ThreadCard key={thread.id} {...thread} />
                 ))}
@@ -122,7 +118,7 @@ export default function Home() {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {hobbyThreads.map((thread) => (
                   <ThreadCard key={thread.id} {...thread} />
                 ))}

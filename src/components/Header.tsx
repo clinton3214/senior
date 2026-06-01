@@ -8,6 +8,7 @@ import { Icons } from "./Icons";
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const pathname = usePathname();
 
   const navigationItems = [
@@ -19,37 +20,61 @@ export default function Header() {
 
   return (
     <>
+      {/* Backdrop Dimming Overlay when Search focused */}
+      {isSearchFocused && (
+        <div 
+          className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-30 transition-all duration-300 pointer-events-none" 
+          aria-hidden="true"
+        />
+      )}
+
       {/* Mobile Header - Compact for narrow screens */}
-      <header className="md:hidden sticky top-0 z-40 bg-surface text-on-surface w-full h-20 flex justify-between items-center px-4 border-b-4 border-outline-variant shadow-sm">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setIsDrawerOpen(true)}
-            aria-label="Open Navigation Menu"
-            className="h-12 min-w-[48px] px-2.5 flex items-center justify-center gap-1.5 text-primary hover:bg-surface-container rounded-2xl transition-colors border border-outline-variant active:scale-95 cursor-pointer"
-          >
-            <Icons.Menu size={24} aria-hidden="true" />
-            <span className="text-body-md font-bold hidden sm:inline">Menu</span>
-          </button>
-          <span className="font-display text-headline-sm sm:text-headline-md font-extrabold text-primary tracking-tight ml-1">
-            GoldenCircles
-          </span>
+      <header className="md:hidden sticky top-0 z-40 bg-surface text-on-surface w-full flex flex-col justify-center px-4 border-b-4 border-outline-variant shadow-sm transition-all duration-300">
+        <div className="h-20 flex justify-between items-center w-full">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsDrawerOpen(true)}
+              aria-label="Open Navigation Menu"
+              className="h-12 min-w-[48px] px-2.5 flex items-center justify-center gap-1.5 text-primary hover:bg-surface-container rounded-2xl transition-colors border border-outline-variant active:scale-95 cursor-pointer"
+            >
+              <Icons.Menu size={24} aria-hidden="true" />
+              <span className="text-body-md font-bold hidden sm:inline">Menu</span>
+            </button>
+            <span className="font-display text-headline-sm sm:text-headline-md font-extrabold text-primary tracking-tight ml-1">
+              GoldenCircles
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle visual theme"
+              className="h-12 px-3 flex items-center justify-center gap-2 bg-surface-container-low text-primary hover:bg-surface-container rounded-2xl border border-outline-variant transition-colors active:scale-95 cursor-pointer"
+            >
+              {theme === "light" ? (
+                <Icons.Moon size={22} aria-hidden="true" />
+              ) : (
+                <Icons.Sun size={22} aria-hidden="true" />
+              )}
+              <span className="text-label-md font-bold hidden sm:inline">
+                {theme === "light" ? "Dark Mode" : "Light Mode"}
+              </span>
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle visual theme"
-            className="h-12 px-3 flex items-center justify-center gap-2 bg-surface-container-low text-primary hover:bg-surface-container rounded-2xl border border-outline-variant transition-colors active:scale-95 cursor-pointer"
-          >
-            {theme === "light" ? (
-              <Icons.Moon size={22} aria-hidden="true" />
-            ) : (
-              <Icons.Sun size={22} aria-hidden="true" />
-            )}
-            <span className="text-label-md font-bold hidden sm:inline">
-              {theme === "light" ? "Dark Mode" : "Light Mode"}
-            </span>
-          </button>
+        {/* Mobile Search Row (permanently visible on mobile, modern curved borders + google glow) */}
+        <div className="pb-3 w-full">
+          <div className="relative w-full rounded-2xl border-2 border-outline-variant bg-surface-container-lowest transition-all duration-300 google-search-focus z-40">
+            <Icons.Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true" />
+            <input
+              type="text"
+              placeholder="Search forums..."
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
+              className="pl-10 pr-4 py-3.5 bg-transparent text-on-surface placeholder:text-outline outline-none w-full font-body-md text-body-md rounded-2xl"
+            />
+          </div>
         </div>
       </header>
 
@@ -77,7 +102,11 @@ export default function Header() {
             </div>
 
             {/* Profile Section */}
-            <a href="/profile" onClick={() => setIsDrawerOpen(false)} className="flex items-center gap-4 mb-8 p-4 bg-surface-container rounded-2xl border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer">
+            <a 
+              href="/profile" 
+              onClick={() => setIsDrawerOpen(false)} 
+              className="flex items-center gap-4 mb-8 p-4 bg-surface-container rounded-2xl border border-outline-variant hover:bg-surface-container-high transition-colors cursor-pointer"
+            >
               <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container border border-outline flex items-center justify-center overflow-hidden">
                 <Icons.Person size={24} className="text-primary" />
               </div>
@@ -159,12 +188,15 @@ export default function Header() {
 
         {/* Global Toolbar and Controls */}
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <Icons.Search size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true" />
+          {/* Search bar with active glow + dimming support */}
+          <div className="relative hidden md:block rounded-2xl border-2 border-outline-variant bg-surface-container-lowest transition-all duration-300 google-search-focus z-40">
+            <Icons.Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true" />
             <input
               type="text"
               placeholder="Search forums..."
-              className="pl-10 pr-4 py-3 border-2 border-outline-variant rounded-2xl bg-surface-container-lowest text-on-surface placeholder:text-outline focus:border-primary focus:ring-4 focus:ring-primary/20 outline-none transition-all w-64 font-body-md text-body-md"
+              onFocus={() => setIsSearchFocused(true)}
+              onBlur={() => setIsSearchFocused(false)}
+              className="pl-10 pr-4 py-3 bg-transparent text-on-surface placeholder:text-outline outline-none w-64 font-body-md text-body-md rounded-2xl"
             />
           </div>
 

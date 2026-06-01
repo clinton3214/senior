@@ -3,16 +3,20 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
+export type TextSize = "normal" | "large" | "largest";
 
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
+  textSize: TextSize;
+  changeTextSize: (size: TextSize) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
+  const [textSize, setTextSize] = useState<TextSize>("normal");
 
   useEffect(() => {
     // Access localStorage safely on the client side
@@ -27,6 +31,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove("dark");
     }
 
+    // Text Size Initialization
+    const savedTextSize = localStorage.getItem("textSize") as TextSize | null;
+    const activeTextSize = savedTextSize || "normal";
+    setTextSize(activeTextSize);
+    applyTextSizeClass(activeTextSize);
+
     // Register Service Worker for PWA support
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       navigator.serviceWorker
@@ -35,6 +45,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         .catch((err) => console.error("Service Worker registration failed:", err));
     }
   }, []);
+
+  const applyTextSizeClass = (size: TextSize) => {
+    const root = document.documentElement;
+    root.classList.remove("text-scale-normal", "text-scale-large", "text-scale-largest");
+    root.classList.add(`text-scale-${size}`);
+  };
 
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light";
@@ -48,8 +64,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const changeTextSize = (size: TextSize) => {
+    setTextSize(size);
+    localStorage.setItem("textSize", size);
+    applyTextSizeClass(size);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, textSize, changeTextSize }}>
       {children}
     </ThemeContext.Provider>
   );
