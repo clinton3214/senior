@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -20,7 +20,7 @@ const THREADS: Record<
   }
 > = {
   "retirement-1": {
-    category: "Finance",
+    category: "Retirement Planning",
     timeAgo: "2 hours ago",
     title: "Maximizing Social Security Benefits in 2026",
     replies: 42,
@@ -30,7 +30,7 @@ const THREADS: Record<
       "I've been reading through the new federal guidelines and wanted to share some strategies for those of us turning 65 this year. It seems there are a few overlooked claiming options that could make a real difference in monthly benefits.\n\nFirst, if you were born between 1960 and 1962, there's a new bridge benefit that covers the gap between early retirement and full eligibility. Second, spousal benefits have been restructured — if your partner earned significantly less, you may be able to claim up to 50% of their benefit on top of your own.\n\nI spoke with my local Social Security office last week and they confirmed these changes. Has anyone else looked into this? I'd love to hear your experiences.",
   },
   "retirement-2": {
-    category: "Downsizing",
+    category: "Retirement Planning",
     timeAgo: "5 hours ago",
     title: "Moving from a 4-bedroom house to a condo: My experience",
     replies: 18,
@@ -40,7 +40,7 @@ const THREADS: Record<
       "The process of decluttering 30 years of memories was daunting, but I finally made the move to a smaller space. Here is what I wish I knew before starting this transition.\n\nThe emotional weight of going through old photo albums, children's drawings, and holiday decorations was harder than I expected. My advice: take it one room at a time and give yourself permission to keep the things that truly matter.\n\nThe practical side was easier. I hired a senior move manager who specialized in downsizing. They helped with everything from floor plans to donation pickups. The condo itself is wonderful — one level, modern appliances, and a community garden downstairs.",
   },
   "hobby-1": {
-    category: "Gardening",
+    category: "Hobbies & Interests",
     timeAgo: "1 day ago",
     title: "Spring Planting Guide for Zone 6",
     replies: 12,
@@ -50,7 +50,7 @@ const THREADS: Record<
       "Getting an early start on heirloom tomatoes this year. Is anyone else starting seeds indoors or preparing soil beds early? Let's swap tips.\n\nI've found that starting Brandywine and Cherokee Purple varieties under grow lights 8 weeks before the last frost gives them the best head start. The key is keeping soil temperature around 75°F — I use a simple seedling heat mat.\n\nFor soil preparation, I've been layering compost, aged manure, and crushed eggshells into my raised beds. The calcium from the eggshells really helps prevent blossom end rot later in the season.",
   },
   "hobby-2": {
-    category: "Travel",
+    category: "Hobbies & Interests",
     timeAgo: "2 days ago",
     title: "Accessible European River Cruises",
     replies: 8,
@@ -60,7 +60,7 @@ const THREADS: Record<
       "Looking for recommendations for cruise lines that cater well to limited mobility. Planning an anniversary trip and want smooth excursions.\n\nMy wife uses a walker, and we've found that not all cruise lines are equally accommodating. We had a wonderful experience with AmaWaterways last year — they had level boarding, wide cabin doorways, and accessible bathrooms.\n\nWe're now looking at the Danube route for our 40th anniversary. Has anyone done the Budapest to Vienna stretch? I'm particularly interested in hearing about the shore excursion accessibility.",
   },
   "health-1": {
-    category: "Health",
+    category: "Health & Wellness",
     timeAgo: "3 hours ago",
     title: "Best Knee-Friendly Exercises for Home",
     replies: 32,
@@ -70,7 +70,7 @@ const THREADS: Record<
       "Let's share home workouts that are gentle on joints but keep us active. I've found some excellent routines using chair yoga and resistance bands that have really helped with my flexibility and knee pain.\n\nSince retiring, I noticed my knees got stiffer if I sat too long. I bought a set of fabric resistance bands and a sturdy metal chair, and now do 15 minutes of seated leg extensions, heel slides, and wall sits every morning.\n\nIt doesn't strain the joints but strengthens the quadriceps which support the knees. What knee-friendly exercises have worked wonders for you?",
   },
   "tech-1": {
-    category: "Technology",
+    category: "Technology & Support",
     timeAgo: "6 hours ago",
     title: "Getting Started with Voice-to-Text on Smartphones",
     replies: 14,
@@ -80,7 +80,7 @@ const THREADS: Record<
       "If your fingers or eyes get tired typing, voice-to-text is a total game changer. Let me share how to set it up easily on iPhone and Android, and some quick dictation tips.\n\nFirst, make sure dictation is enabled in your keyboard settings. On both iPhone and Android, look for the microphone icon on your keyboard—not the message input mic (which sends voice clips), but the one on the actual keyboard itself. Tap it once, speak clearly, and say your punctuation like 'comma' or 'period'.\n\nIt saves so much strain on arthritic hands! Let me know if you run into any setup issues, I'm happy to help troubleshoot.",
   },
   "travel-1": {
-    category: "Travel",
+    category: "Travel & Adventure",
     timeAgo: "1 day ago",
     title: "Grand Canyon Railway vs. Driving: Advice needed",
     replies: 25,
@@ -90,7 +90,7 @@ const THREADS: Record<
       "We are planning a trip to Arizona in September and want to know if the historic train ride from Williams is worth it compared to driving. Looking for advice on accessibility.\n\nMy wife uses a walker, and we want to know if the train cars are easy to board and if there is ample storage space. Also, does the train crew help with boarding? We would love to hear from anyone who has taken this historic line recently.",
   },
   "cooking-1": {
-    category: "Cooking",
+    category: "Cooking & Recipes",
     timeAgo: "2 days ago",
     title: "The Secrets to Perfect Sugar-Free Baking",
     replies: 19,
@@ -100,7 +100,7 @@ const THREADS: Record<
       "Baking for diabetic family members is tricky. I've been experimenting with monk fruit, erythritol, and almond flour. Let's exchange recipes that actually taste good!\n\nI've found that monk fruit sweeteners blend much better into cake batters than stevia, which can leave a bitter aftertaste. Also, adding a tiny pinch of xanthan gum helps maintain structure in gluten-free, sugar-free pastries. What are your go-to baking substitutes?",
   },
   "arts-1": {
-    category: "Arts",
+    category: "Creative Arts",
     timeAgo: "3 days ago",
     title: "Watercolors for Beginners: What supplies do I actually need?",
     replies: 11,
@@ -184,48 +184,110 @@ export default function ThreadDetailPage() {
   const params = useParams();
   const id = params.id as string;
 
-  const thread = THREADS[id];
-  const initialComments = COMMENTS[id] || [];
-
-  const [comments, setComments] = useState(initialComments);
+  const [thread, setThread] = useState<any>(null);
+  const [comments, setComments] = useState<any[]>([]);
   const [newReplyText, setNewReplyText] = useState("");
-  const [replyCount, setReplyCount] = useState(thread?.replies ?? 0);
+  const [replyCount, setReplyCount] = useState(0);
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(3);
-
-  // Mock seeding of initial likes to look realistic
-  const seedLikes = id === "retirement-1" 
-    ? 24 
-    : id === "retirement-2" 
-      ? 12 
-      : id === "hobby-1" 
-        ? 8 
-        : id === "health-1"
-          ? 32
-          : id === "tech-1"
-            ? 14
-            : id === "travel-1"
-              ? 25
-              : id === "cooking-1"
-                ? 19
-                : id === "arts-1"
-                  ? 11
-                  : 5;
-
-  const [likeCount, setLikeCount] = useState(seedLikes);
+  const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // 1. Resolve current thread data
+    let foundThread = null;
+    const savedThreadsStr = localStorage.getItem("threads");
+    if (savedThreadsStr) {
+      try {
+        const savedThreads = JSON.parse(savedThreadsStr);
+        foundThread = savedThreads.find((t: any) => t.id === id);
+      } catch (e) {}
+    }
+
+    if (!foundThread) {
+      foundThread = THREADS[id];
+    }
+
+    if (foundThread) {
+      const actualThreadDetail = THREADS[id] || foundThread;
+      const completeThread = {
+        ...foundThread,
+        fullText: foundThread.fullText || actualThreadDetail.fullText || foundThread.excerpt,
+      };
+      setThread(completeThread);
+      setReplyCount(completeThread.replies ?? 0);
+
+      // Seed likes
+      const seedLikes = id === "retirement-1" 
+        ? 24 
+        : id === "retirement-2" 
+          ? 12 
+          : id === "hobby-1" 
+            ? 8 
+            : id === "health-1"
+              ? 32
+              : id === "tech-1"
+                ? 14
+                : id === "travel-1"
+                  ? 25
+                  : id === "cooking-1"
+                    ? 19
+                    : id === "arts-1"
+                      ? 11
+                      : 5;
+
+      const savedLikeState = localStorage.getItem("liked_" + id);
+      const savedLikeCount = localStorage.getItem("likes_count_" + id);
+      if (savedLikeState) {
+        setIsLiked(savedLikeState === "true");
+      }
+      if (savedLikeCount) {
+        setLikeCount(parseInt(savedLikeCount));
+      } else {
+        setLikeCount(seedLikes);
+      }
+    }
+
+    // 2. Resolve comments
+    const savedComments = localStorage.getItem("comments_" + id);
+    if (savedComments) {
+      try {
+        setComments(JSON.parse(savedComments));
+      } catch (e) {
+        setComments(COMMENTS[id] || []);
+      }
+    } else {
+      const defaultComms = COMMENTS[id] || [];
+      setComments(defaultComms);
+      localStorage.setItem("comments_" + id, JSON.stringify(defaultComms));
+    }
+
+    setIsLoaded(true);
+  }, [id]);
 
   const handleLike = () => {
-    if (isLiked) {
-      setLikeCount((prev) => prev - 1);
-      setIsLiked(false);
-    } else {
-      setLikeCount((prev) => prev + 1);
-      setIsLiked(true);
-      
-      // Play mobile vibration if supported
-      if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
-        window.navigator.vibrate(10);
-      }
+    const nextLiked = !isLiked;
+    const nextCount = nextLiked ? likeCount + 1 : likeCount - 1;
+    setIsLiked(nextLiked);
+    setLikeCount(nextCount);
+    localStorage.setItem("liked_" + id, String(nextLiked));
+    localStorage.setItem("likes_count_" + id, String(nextCount));
+
+    // Update in global threads list as well to match card count on main page
+    const savedThreadsStr = localStorage.getItem("threads");
+    if (savedThreadsStr) {
+      try {
+        const savedThreads = JSON.parse(savedThreadsStr);
+        const idx = savedThreads.findIndex((t: any) => t.id === id);
+        if (idx > -1) {
+          // If the thread is saved, keep it matching
+          localStorage.setItem("threads", JSON.stringify(savedThreads));
+        }
+      } catch (e) {}
+    }
+
+    if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(10);
     }
   };
 
@@ -240,13 +302,41 @@ export default function ThreadDetailPage() {
       text: newReplyText.trim(),
     };
 
-    setComments([newComment, ...comments]);
-    setReplyCount((prev) => prev + 1);
+    const nextComments = [newComment, ...comments];
+    setComments(nextComments);
+    localStorage.setItem("comments_" + id, JSON.stringify(nextComments));
+
+    const nextReplies = replyCount + 1;
+    setReplyCount(nextReplies);
+
+    // Save back to master threads in localStorage
+    const savedThreadsStr = localStorage.getItem("threads");
+    if (savedThreadsStr) {
+      try {
+        const savedThreads = JSON.parse(savedThreadsStr);
+        const idx = savedThreads.findIndex((t: any) => t.id === id);
+        if (idx > -1) {
+          savedThreads[idx].replies = nextReplies;
+          localStorage.setItem("threads", JSON.stringify(savedThreads));
+        }
+      } catch (e) {}
+    }
+
     setNewReplyText("");
-    
-    // Automatically expand list to show the newly added reply
-    setVisibleCommentsCount((prev) => prev + 1);
+    setVisibleCommentsCount((prev) => Math.max(prev + 1, 4));
   };
+
+  if (!isLoaded) {
+    return (
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-1 w-full max-w-max-width mx-auto px-4 py-8 md:px-6 md:py-10 flex items-center justify-center">
+          <p className="font-body-lg text-outline">Loading discussion...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   // Thread not found
   if (!thread) {
@@ -359,7 +449,7 @@ export default function ThreadDetailPage() {
             Discussion ({comments.length} comments)
           </h2>
 
-          {/* Quick Reply Form (REPOSITIONED: Now sits at the TOP of the comments, right below header) */}
+          {/* Quick Reply Form */}
           <form onSubmit={handleReplySubmit} className="space-y-4 pb-6 border-b-2 border-surface-variant">
             <label
               htmlFor="thread-reply-input"

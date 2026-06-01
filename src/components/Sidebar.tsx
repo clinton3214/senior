@@ -53,40 +53,25 @@ export default function Sidebar() {
         </ul>
       </section>
 
-      {/* Today's Birthdays Widget */}
+      {/* Today's Birthdays Widget - Simplified Teaser pointing to dedicated page */}
       <section className="bg-surface-container-lowest border-2 border-outline-variant rounded-3xl p-5 sm:p-6 shadow-sm">
-        <h3 className="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-3 font-extrabold pb-3 border-b-2 border-surface-variant">
+        <h3 className="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-3 font-extrabold pb-3 border-b-2 border-surface-variant">
           <span className="text-2xl" role="img" aria-label="Birthday cake icon">🎂</span>
           Today&apos;s Birthdays
         </h3>
         
-        <p className="font-body-md text-body-md text-on-surface-variant mb-4 leading-relaxed">
-          Wishing a very happy birthday to our celebrating community members today! 🎉
+        <p className="font-body-md text-body-md text-on-surface-variant mb-5 leading-relaxed">
+          Celebrate with **Martha_S (72)**, **GardenPete (68)**, and other members today!
         </p>
 
-        <div className="space-y-3.5">
-          {[
-            { name: "Martha_S", initials: "MS", age: 72, emoji: "🎂" },
-            { name: "GardenPete", initials: "GP", age: 68, emoji: "🎈" },
-            { name: "JohnDoe77", initials: "JD", age: 66, emoji: "🎉" },
-          ].map((birthday, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3.5 bg-surface-container-low border border-outline-variant rounded-2xl transition-all hover:bg-surface-container">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container border border-outline flex items-center justify-center font-extrabold text-body-md">
-                  {birthday.initials}
-                </div>
-                <div>
-                  <span className="font-body-md font-bold text-on-surface block leading-tight">{birthday.name}</span>
-                  <span className="text-label-md text-secondary font-bold">{birthday.age} today!</span>
-                </div>
-              </div>
-              <span className="text-2xl" role="img" aria-label="Celebration emoji">
-                {birthday.emoji}
-              </span>
-            </div>
-          ))}
-        </div>
+        <a 
+          href="/birthdays" 
+          className="min-h-[48px] w-full bg-primary text-on-primary hover:bg-primary-container rounded-2xl font-bold flex items-center justify-center gap-2 transition-all active:scale-98 shadow-xs"
+        >
+          Send Birthday Greetings 🎉
+        </a>
       </section>
+
 
       {/* Forum Stats Widget */}
       <section className="bg-surface-container border-2 border-outline-variant rounded-3xl p-5 sm:p-6 shadow-sm">

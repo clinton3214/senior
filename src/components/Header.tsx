@@ -16,6 +16,7 @@ export default function Header() {
     { label: "What's New", icon: Icons.Sparkles, href: "/whats-new", active: pathname === "/whats-new" },
     { label: "Media", icon: Icons.Play, href: "/media", active: pathname === "/media" },
     { label: "Membership", icon: Icons.Star, href: "/membership", active: pathname === "/membership" },
+    { label: "Birthdays", icon: Icons.Calendar, href: "/birthdays", active: pathname === "/birthdays" },
   ];
 
   return (
