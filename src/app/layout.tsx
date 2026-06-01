@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Atkinson_Hyperlegible } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import FloatingTextSize from "@/components/FloatingTextSize";
+import FloatingToolbar from "@/components/FloatingToolbar";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-on-background">
         <ThemeProvider>
           {children}
-          <FloatingTextSize />
+          <FloatingToolbar />
         </ThemeProvider>
       </body>
     </html>

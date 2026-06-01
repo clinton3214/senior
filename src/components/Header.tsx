@@ -160,68 +160,45 @@ export default function Header() {
         </div>
       )}
 
-      {/* Desktop Header */}
+      {/* Desktop Header — Clean: nav + search only. Profile & Theme are floating FABs. */}
       <header className="hidden md:flex sticky top-0 z-40 bg-surface text-on-surface w-full max-w-max-width mx-auto px-4 lg:px-6 h-24 justify-between items-center border-b-4 border-outline-variant shadow-sm">
         <div className="flex items-center gap-3 lg:gap-6 xl:gap-8 h-full">
           <span className="font-display text-headline-sm lg:text-headline-md xl:text-display font-extrabold text-primary tracking-tight">
             GoldenCircles
           </span>
           <nav className="flex items-center gap-1 lg:gap-2 h-full font-label-lg">
-            {navigationItems.map((item, idx) => {
-              const IconComponent = item.icon;
-              return (
-                <a
-                  key={idx}
-                  href={item.href}
-                  className={`h-16 px-2 lg:px-3 xl:px-4 flex items-center gap-1.5 border-b-4 text-body-md font-bold transition-all hover:bg-surface-container-low ${
-                    item.active
-                      ? "text-primary border-primary"
-                      : "text-on-surface-variant border-transparent hover:text-primary"
-                  }`}
-                >
-                  <IconComponent size={20} aria-hidden="true" />
-                  <span className="hidden lg:inline">{item.label}</span>
-                </a>
-              );
-            })}
+            {navigationItems
+              .filter((item) => item.label !== "Birthdays")
+              .map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <a
+                    key={idx}
+                    href={item.href}
+                    className={`h-16 px-2 lg:px-3 xl:px-4 flex items-center gap-1.5 border-b-4 text-body-md font-bold transition-all hover:bg-surface-container-low ${
+                      item.active
+                        ? "text-primary border-primary"
+                        : "text-on-surface-variant border-transparent hover:text-primary"
+                    }`}
+                  >
+                    <IconComponent size={20} aria-hidden="true" />
+                    <span className="hidden lg:inline">{item.label}</span>
+                  </a>
+                );
+              })}
           </nav>
         </div>
 
-        {/* Global Toolbar and Controls */}
-        <div className="flex items-center gap-2.5 lg:gap-4">
-          {/* Search bar with active glow + dimming support */}
-          <div className="relative hidden md:block rounded-2xl border-2 border-outline-variant bg-surface-container-lowest transition-all duration-300 google-search-focus z-40">
-            <Icons.Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true" />
-            <input
-              type="text"
-              placeholder="Search forums..."
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-              className="pl-10 pr-4 py-3 bg-transparent text-on-surface placeholder:text-outline outline-none w-32 lg:w-48 xl:w-64 font-body-md text-body-md rounded-2xl"
-            />
-          </div>
-
-          {/* Theme switcher */}
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle light/dark visual display"
-            className="h-12 px-3 lg:px-4 flex items-center justify-center gap-2 bg-surface-container-low hover:bg-surface-container text-primary border-2 border-outline-variant rounded-2xl font-bold transition-colors active:scale-95 cursor-pointer"
-          >
-            {theme === "light" ? (
-              <Icons.Moon size={20} aria-hidden="true" />
-            ) : (
-              <Icons.Sun size={20} aria-hidden="true" />
-            )}
-            <span className="text-body-md font-bold hidden xl:inline">
-              {theme === "light" ? "Dark Mode" : "Light Mode"}
-            </span>
-          </button>
-
-          {/* User Account */}
-          <a href="/profile" className="h-12 px-3 lg:px-4 flex items-center justify-center gap-2 hover:bg-surface-container text-primary border-2 border-outline-variant rounded-2xl font-bold transition-colors active:scale-95 cursor-pointer">
-            <Icons.Person size={20} className="text-primary" aria-hidden="true" />
-            <span className="text-body-md font-bold hidden xl:inline">Profile</span>
-          </a>
+        {/* Search bar — now has full breathing room */}
+        <div className="relative rounded-2xl border-2 border-outline-variant bg-surface-container-lowest transition-all duration-300 google-search-focus z-40">
+          <Icons.Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true" />
+          <input
+            type="text"
+            placeholder="Search forums..."
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
+            className="pl-10 pr-4 py-3 bg-transparent text-on-surface placeholder:text-outline outline-none w-48 lg:w-64 xl:w-80 font-body-md text-body-md rounded-2xl"
+          />
         </div>
       </header>
 
