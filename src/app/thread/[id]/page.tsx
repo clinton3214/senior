@@ -192,6 +192,7 @@ export default function ThreadDetailPage() {
   const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [commentLikes, setCommentLikes] = useState<Record<number, { count: number; liked: boolean }>>({});
 
   useEffect(() => {
     // 1. Resolve current thread data
@@ -249,17 +250,40 @@ export default function ThreadDetailPage() {
     }
 
     // 2. Resolve comments
+    let resolvedComments: any[] = [];
     const savedComments = localStorage.getItem("comments_" + id);
     if (savedComments) {
       try {
-        setComments(JSON.parse(savedComments));
+        resolvedComments = JSON.parse(savedComments);
       } catch (e) {
-        setComments(COMMENTS[id] || []);
+        resolvedComments = COMMENTS[id] || [];
       }
     } else {
-      const defaultComms = COMMENTS[id] || [];
-      setComments(defaultComms);
-      localStorage.setItem("comments_" + id, JSON.stringify(defaultComms));
+      resolvedComments = COMMENTS[id] || [];
+      localStorage.setItem("comments_" + id, JSON.stringify(resolvedComments));
+    }
+    setComments(resolvedComments);
+
+    // 3. Resolve per-comment likes
+    const savedCommentLikes = localStorage.getItem("comment_likes_" + id);
+    if (savedCommentLikes) {
+      try {
+        setCommentLikes(JSON.parse(savedCommentLikes));
+      } catch (e) {
+        // Seed default likes
+        const seeded: Record<number, { count: number; liked: boolean }> = {};
+        resolvedComments.forEach((_: any, i: number) => {
+          seeded[i] = { count: Math.floor(Math.random() * 12) + 1, liked: false };
+        });
+        setCommentLikes(seeded);
+      }
+    } else {
+      const seeded: Record<number, { count: number; liked: boolean }> = {};
+      resolvedComments.forEach((_: any, i: number) => {
+        seeded[i] = { count: Math.floor(Math.random() * 12) + 1, liked: false };
+      });
+      setCommentLikes(seeded);
+      localStorage.setItem("comment_likes_" + id, JSON.stringify(seeded));
     }
 
     setIsLoaded(true);
@@ -291,6 +315,20 @@ export default function ThreadDetailPage() {
     }
   };
 
+  const handleCommentLike = (commentIndex: number) => {
+    setCommentLikes((prev) => {
+      const current = prev[commentIndex] || { count: 0, liked: false };
+      const nextLiked = !current.liked;
+      const nextCount = nextLiked ? current.count + 1 : current.count - 1;
+      const updated = { ...prev, [commentIndex]: { count: nextCount, liked: nextLiked } };
+      localStorage.setItem("comment_likes_" + id, JSON.stringify(updated));
+      return updated;
+    });
+    if (typeof window !== "undefined" && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(10);
+    }
+  };
+
   const handleReplySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newReplyText.trim()) return;
@@ -305,6 +343,16 @@ export default function ThreadDetailPage() {
     const nextComments = [newComment, ...comments];
     setComments(nextComments);
     localStorage.setItem("comments_" + id, JSON.stringify(nextComments));
+
+    // Add a fresh like entry for the new comment at index 0, shift others
+    setCommentLikes((prev) => {
+      const shifted: Record<number, { count: number; liked: boolean }> = { 0: { count: 0, liked: false } };
+      Object.keys(prev).forEach((key) => {
+        shifted[parseInt(key) + 1] = prev[parseInt(key)];
+      });
+      localStorage.setItem("comment_likes_" + id, JSON.stringify(shifted));
+      return shifted;
+    });
 
     const nextReplies = replyCount + 1;
     setReplyCount(nextReplies);
@@ -503,6 +551,21 @@ export default function ThreadDetailPage() {
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                       {comment.text}
                     </p>
+                    {/* Comment Like Button */}
+                    <div className="pt-2">
+                      <button
+                        onClick={() => handleCommentLike(index)}
+                        aria-label={commentLikes[index]?.liked ? "Unlike comment" : "Like comment"}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-label-md font-bold transition-all active:scale-95 cursor-pointer ${
+                          commentLikes[index]?.liked
+                            ? "bg-primary-container text-primary border-primary"
+                            : "bg-transparent text-outline border-outline-variant hover:border-outline hover:text-secondary"
+                        }`}
+                      >
+                        <Icons.Heart size={14} className={commentLikes[index]?.liked ? "text-primary" : ""} />
+                        <span>{commentLikes[index]?.count || 0}</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

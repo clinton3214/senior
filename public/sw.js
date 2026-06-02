@@ -1,4 +1,4 @@
-const CACHE_NAME = 'goldencircles-cache-v1';
+const CACHE_NAME = 'seniordemo-cache-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/manifest.json',
