@@ -3,7 +3,7 @@
 
 services:
   - type: web
-    name: goldencircles-forums
+    name: senior-demo
     runtime: node
     plan: free # Deploys on Render's free tier
     buildCommand: npm install && npm run build
