@@ -14,10 +14,10 @@ export default function Footer() {
         {/* Brand & Copy */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <span className="font-display text-headline-md font-bold text-primary tracking-tight">
-            GoldenCircles
+            Senior Demo
           </span>
           <p className="font-body-md text-body-md text-secondary text-center md:text-left font-bold max-w-md leading-relaxed">
-            © 2026 GoldenCircles Community. Designed for absolute clarity, readability, and connection.
+            © 2026 Senior Demo Community. Designed for absolute clarity, readability, and connection.
           </p>
         </div>
 

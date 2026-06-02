@@ -220,7 +220,7 @@ export default function BirthdaysPage() {
                     {[
                       "Wishing you a wonderful year of good health and happiness! 🎂",
                       "Hope your special day is filled with joy, family, and good tea! 🌸☕",
-                      "Happy Birthday! Thank you for being such a wonderful part of GoldenCircles! 🥳🎉",
+                      "Happy Birthday! Thank you for being such a wonderful part of Senior Demo! 🥳🎉",
                     ].map((template, idx) => (
                       <button
                         key={idx}

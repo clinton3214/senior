@@ -42,7 +42,7 @@ export default function Header() {
               <span className="text-body-md font-bold hidden sm:inline">Menu</span>
             </button>
             <span className="font-display text-headline-sm sm:text-headline-md font-extrabold text-primary tracking-tight ml-1">
-              GoldenCircles
+              Senior Demo
             </span>
           </div>
 
@@ -92,7 +92,7 @@ export default function Header() {
           {/* Drawer Content */}
           <div className="relative z-50 flex flex-col p-6 bg-surface text-on-surface w-80 h-full border-r-4 border-outline-variant shadow-2xl transition-transform duration-300 transform translate-x-0 overflow-y-auto">
             <div className="flex items-center justify-between mb-8 pb-4 border-b-2 border-surface-variant">
-              <span className="font-display text-headline-md font-bold text-primary">GoldenCircles</span>
+              <span className="font-display text-headline-md font-bold text-primary">Senior Demo</span>
               <button
                 onClick={() => setIsDrawerOpen(false)}
                 aria-label="Close navigation menu"
@@ -164,7 +164,7 @@ export default function Header() {
       <header className="hidden md:flex sticky top-0 z-40 bg-surface text-on-surface w-full max-w-max-width mx-auto px-4 lg:px-6 h-24 justify-between items-center border-b-4 border-outline-variant shadow-sm">
         <div className="flex items-center gap-3 lg:gap-6 xl:gap-8 h-full">
           <span className="font-display text-headline-sm lg:text-headline-md xl:text-display font-extrabold text-primary tracking-tight">
-            GoldenCircles
+            Senior Demo
           </span>
           <nav className="flex items-center gap-1 lg:gap-2 h-full font-label-lg">
             {navigationItems

@@ -130,7 +130,7 @@ export default function Membership() {
                 >
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="font-headline-md text-headline-md font-extrabold text-primary">Golden Circle</span>
+                      <span className="font-headline-md text-headline-md font-extrabold text-primary">Senior Demo</span>
                       <span className="px-3 py-1 bg-primary text-on-primary text-label-md font-bold rounded-xl shadow-xs">Premium Choice</span>
                     </div>
                     <p className="font-display text-headline-lg font-extrabold text-primary">$5 <span className="text-body-md text-secondary font-bold">/ month</span></p>
@@ -140,7 +140,7 @@ export default function Membership() {
                   </div>
                   
                   <div className="pt-4 border-t border-surface-variant flex items-center justify-between text-primary font-bold font-label-lg">
-                    <span>{selectedPlan === "premium" ? "✓ Currently Selected" : "Upgrade to Golden Circle"}</span>
+                    <span>{selectedPlan === "premium" ? "✓ Currently Selected" : "Upgrade to Senior Demo"}</span>
                     <Icons.ArrowRight size={20} />
                   </div>
                 </div>
@@ -281,7 +281,7 @@ export default function Membership() {
                 Our Commitment
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                GoldenCircles is run by seniors, for seniors. We will never sell your personal information, display intrusive ads, or charge hidden fees. Your security is our number one mission.
+                Senior Demo is run by seniors, for seniors. We will never sell your personal information, display intrusive ads, or charge hidden fees. Your security is our number one mission.
               </p>
             </section>
 
@@ -304,7 +304,7 @@ export default function Membership() {
 
             <div className="space-y-2">
               <h3 className="font-headline-lg text-headline-lg text-primary font-extrabold">
-                Welcome to GoldenCircles!
+                Welcome to Senior Demo!
               </h3>
               <p className="font-body-lg text-body-lg text-on-surface font-bold">
                 Congratulations, {fullName}!

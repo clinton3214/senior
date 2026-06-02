@@ -43,7 +43,7 @@ export default function Media() {
     {
       id: "audio",
       type: "audio",
-      title: "The Golden-Age Gardener Podcast - Episode 24",
+      title: "The Senior Demo Gardener Podcast - Episode 24",
       durationOrPages: "45 mins",
       instructor: "GardenPete",
       description: "Listen to Pete talk about late spring seedling preparation, soil nourishment recipes, and quick tricks to discourage pests without heavy chemicals.",
@@ -52,7 +52,7 @@ export default function Media() {
     {
       id: "media-4",
       type: "photo",
-      title: "GoldenCircles Photography Contest Gallery",
+      title: "Senior Demo Photography Contest Gallery",
       durationOrPages: "18 Photos",
       instructor: "Community Submissions",
       description: "Browse the stunning photography submissions by our very own members, capturing morning sunrises, garden harvests, and family celebrations.",

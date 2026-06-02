@@ -19,8 +19,8 @@ const atkinsonHyperlegible = Atkinson_Hyperlegible({
 });
 
 export const metadata: Metadata = {
-  title: "GoldenCircles - Senior Forums",
-  description: "A clear, accessible, and high-contrast community space designed for golden-age members to discuss planning, health, and hobbies.",
+  title: "Senior Demo - Senior Forums",
+  description: "A clear, accessible, and high-contrast community space designed for senior members to discuss planning, health, and hobbies.",
   manifest: "/manifest.json",
 };
 

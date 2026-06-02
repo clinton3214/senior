@@ -5,7 +5,7 @@ export default function WelcomeWidget() {
     <section className="bg-primary-container text-on-primary-container rounded-3xl p-6 sm:p-8 relative overflow-hidden border-2 border-primary shadow-lg min-h-[280px] flex flex-col justify-between">
       <div className="relative z-10 max-w-lg">
         <h3 className="font-headline-lg text-headline-lg mb-3 text-on-primary font-extrabold tracking-tight">
-          Join GoldenCircles
+          Join Senior Demo
         </h3>
         <p className="font-body-md text-body-md mb-6 text-on-primary-container font-medium leading-relaxed opacity-95">
           Create a free account today to participate in discussions, send private messages, and customize your reading view.

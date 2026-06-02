@@ -25,7 +25,7 @@ export default function WhatsNew() {
     {
       id: "up-1",
       type: "announcement",
-      title: "GoldenCircles Accessibility Upgrades Completed",
+      title: "Senior Demo Accessibility Upgrades Completed",
       excerpt: "To continue supporting our community members, we have rolled out Level 3 accessibility compliance. This includes 200% screen zoom safety, custom high-contrast touch guides, and extra large navigation buttons.",
       timeAgo: "2 hours ago",
       tag: "Platform News",

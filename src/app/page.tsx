@@ -452,7 +452,7 @@ export default function Home() {
                   Directory Completed
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-md leading-relaxed mb-6">
-                  You have reached the end of the forums directory. GoldenCircles is growing daily—check back later for new boards!
+                  You have reached the end of the forums directory. Senior Demo is growing daily—check back later for new boards!
                 </p>
                 <button 
                   onClick={() => handlePageChange(1)}
